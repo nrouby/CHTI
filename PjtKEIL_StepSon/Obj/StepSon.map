@@ -432,12 +432,12 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
          0          0      11032          0          0          0   bruitverre.o
-        80         18          0          8          0        336   gestionson.o
+        80         18          0          8          0        340   gestionson.o
         36          8          0          0          0       1891   principal.o
         76         20        236          0       1024        800   startup-rvds.o
 
     ----------------------------------------------------------------------
-       192         46      11300          8       1024       3027   Object Totals
+       192         46      11300          8       1024       3031   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -479,8 +479,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2072        232      11300        168       1024       3599   Grand Totals
-      2072        232      11300        168       1024       3599   ELF Image Totals
+      2072        232      11300        168       1024       3603   Grand Totals
+      2072        232      11300        168       1024       3603   ELF Image Totals
       2072        232      11300        168          0          0   ROM Totals
 
 ==============================================================================

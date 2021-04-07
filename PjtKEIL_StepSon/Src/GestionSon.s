@@ -38,9 +38,9 @@ CallbackSon proc
 	ldr R5,=LongueurSon
 	ldr R5,[R5]
 	sub R5,#1
-	cmp R5, R4
-	beq End_tab
 	ldr R1,[R4] ;R1 = indice
+	cmp R5, R1
+	beq End_tab
 	ldrsh R3,[R0,R1,lsl#1] ;recupere la valeur du son dans r3
 	add R1,#1 ;increment index
 	;mise en forme

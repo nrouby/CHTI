@@ -49,9 +49,9 @@ ARM Macro Assembler    Page 1
    38 0000000A 4D10            ldr              R5,=LongueurSon
    39 0000000C 682D            ldr              R5,[R5]
    40 0000000E F1A5 0501       sub              R5,#1
-   41 00000012 42A5            cmp              R5, R4
-   42 00000014 D010            beq              End_tab
-   43 00000016 6821            ldr              R1,[R4]     ;R1 = indice
+   41 00000012 6821            ldr              R1,[R4]     ;R1 = indice
+   42 00000014 428D            cmp              R5, R1
+   43 00000016 D00F            beq              End_tab
    44 00000018 F930 3011       ldrsh            R3,[R0,R1,lsl#1] ;recupere la v
                                                             aleur du son dans r
                                                             3
@@ -163,7 +163,7 @@ Symbol: End_tab
    Definitions
       At line 57 in file Src\GestionSon.s
    Uses
-      At line 42 in file Src\GestionSon.s
+      At line 43 in file Src\GestionSon.s
 Comment: End_tab used once
 moncode 00000000
 
