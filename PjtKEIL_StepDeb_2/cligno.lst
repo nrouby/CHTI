@@ -1,0 +1,177 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 PRESERVE8
+    2 00000000                 THUMB
+    3 00000000         
+    4 00000000                 extern           GPIOB_Set
+    5 00000000                 extern           GPIOB_Clear
+    6 00000000         
+    7 00000000                 EXPORT           timer_callback
+    8 00000000                 EXPORT           FlagCligno
+    9 00000000         ; ====================== zone de réservation de données,
+                         ======================================
+   10 00000000         ;Section RAM (read only) :
+   11 00000000                 area             mesdata,data,readonly
+   12 00000000         
+   13 00000000         
+   14 00000000         ;Section RAM (read write):
+   15 00000000                 area             maram,data,readwrite
+   16 00000000         
+   17 00000000         
+   18 00000000         
+   19 00000000         ; ======================================================
+                       =========================================
+   20 00000000         
+   21 00000000         
+   22 00000000         ;Section ROM code (read only) :  
+   23 00000000                 area             moncode,code,readonly
+   24 00000000         ; écrire le code ici  
+   25 00000000         
+   26 00000000 00000000 
+                       FlagCligno
+                               dcd              0
+   27 00000004         
+   28 00000004         timer_callback
+                               proc
+   29 00000004 E92D 4FF0       push             {r4-r11, lr}
+   30 00000008         
+   31 00000008 4908            ldr              r1, =FlagCligno
+   32 0000000A 6808            ldr              r0, [r1]
+   33 0000000C 2800            cmp              r0, #0
+   34 0000000E D102            bne              diffzero
+   35 00000010 F04F 0101       mov              r1, #1
+   36 00000014 E003            b                fin
+   37 00000016         
+   38 00000016         diffzero
+   39 00000016 F04F 0100       mov              r1, #0
+   40 0000001A F7FF FFFE       bl               GPIOB_Clear
+   41 0000001E         
+   42 0000001E         fin
+   43 0000001E 6001            str              r1, [r0]
+   44 00000020 F7FF FFFE       bl               GPIOB_Clear
+   45 00000024 E8BD 4FF0       pop              {r4-r11, lr}
+   46 00000028 4770            bx               lr
+   47 0000002A                 endp
+   48 0000002A         
+   49 0000002A                 END
+              00 00 00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\cligno.d -o.\obj\cligno.o -I.\RTE\_Simu -IC:\Programdata\Kei
+l\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Arm\Packs\
+Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" --predefine="_RTE
+_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" --list=c
+ligno.lst Src\Cligno.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+mesdata 00000000
+
+Symbol: mesdata
+   Definitions
+      At line 11 in file Src\Cligno.s
+   Uses
+      None
+Comment: mesdata unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+maram 00000000
+
+Symbol: maram
+   Definitions
+      At line 15 in file Src\Cligno.s
+   Uses
+      None
+Comment: maram unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FlagCligno 00000000
+
+Symbol: FlagCligno
+   Definitions
+      At line 26 in file Src\Cligno.s
+   Uses
+      At line 8 in file Src\Cligno.s
+      At line 31 in file Src\Cligno.s
+
+diffzero 00000016
+
+Symbol: diffzero
+   Definitions
+      At line 38 in file Src\Cligno.s
+   Uses
+      At line 34 in file Src\Cligno.s
+Comment: diffzero used once
+fin 0000001E
+
+Symbol: fin
+   Definitions
+      At line 42 in file Src\Cligno.s
+   Uses
+      At line 36 in file Src\Cligno.s
+Comment: fin used once
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 23 in file Src\Cligno.s
+   Uses
+      None
+Comment: moncode unused
+timer_callback 00000004
+
+Symbol: timer_callback
+   Definitions
+      At line 28 in file Src\Cligno.s
+   Uses
+      At line 7 in file Src\Cligno.s
+Comment: timer_callback used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+GPIOB_Clear 00000000
+
+Symbol: GPIOB_Clear
+   Definitions
+      At line 5 in file Src\Cligno.s
+   Uses
+      At line 40 in file Src\Cligno.s
+      At line 44 in file Src\Cligno.s
+
+GPIOB_Set 00000000
+
+Symbol: GPIOB_Set
+   Definitions
+      At line 4 in file Src\Cligno.s
+   Uses
+      None
+Comment: GPIOB_Set unused
+2 symbols
+346 symbols in table
