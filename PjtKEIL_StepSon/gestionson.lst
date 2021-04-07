@@ -7,46 +7,71 @@ ARM Macro Assembler    Page 1
     1 00000000                 PRESERVE8
     2 00000000                 THUMB
     3 00000000         
-    4 00000000                 EXPORT           CallbackSon
-    5 00000000                 EXPORT           SortieSon
-    6 00000000         ; ====================== zone de réservation de données,
+    4 00000000         
+    5 00000000                 EXPORT           CallbackSon
+    6 00000000                 import           Son
+    7 00000000         ; ====================== zone de réservation de données,
                          ======================================
-    7 00000000         ;Section RAM (read only) :
-    8 00000000                 area             mesdata,data,readonly
-    9 00000000         
+    8 00000000         ;Section RAM (read only) :
+    9 00000000                 area             mesdata,data,readonly
    10 00000000         
-   11 00000000         ;Section RAM (read write):
-   12 00000000                 area             maram,data,readwrite
-   13 00000000         
-   14 00000000         
+   11 00000000         
+   12 00000000         
+   13 00000000         ;Section RAM (read write):
+   14 00000000                 area             maram,data,readwrite
    15 00000000         
-   16 00000000         ; ======================================================
-                       =========================================
-   17 00000000         
-   18 00000000         
-   19 00000000         ;Section ROM code (read only) :  
-   20 00000000                 area             moncode,code,readonly
-   21 00000000         ; écrire le code ici  
-   22 00000000         
-   23 00000000 00 00   SortieSon
+   16 00000000 00 00   SortieSon
                                dcw              0
-   24 00000002         
-   25 00000002         CallbackSon
+   17 00000002 00 00 00000000 
+                       Index   dcd              0
+   18 00000008         
+   19 00000008         ; ======================================================
+                       =========================================
+   20 00000008         
+   21 00000008         
+   22 00000008         
+   23 00000008         
+   24 00000008         ;Section ROM code (read only) :  
+   25 00000008                 area             moncode,code,readonly
+   26 00000000         ; écrire le code ici  
+   27 00000000         
+   28 00000000         
+   29 00000000         
+   30 00000000         CallbackSon
                                proc
-   26 00000002 E92D 4FF0       push             {r4-r11, lr}
-   27 00000006         
-   28 00000006         
-   29 00000006 E8BD 4FF0       pop              {r4-r11, lr}
-   30 0000000A 4770            bx               lr
-   31 0000000C                 endp
-   32 0000000C                 END
+   31 00000000 E92D 4FF0       push             {R4-R11, lr}
+   32 00000004 4A05            ldr              R2,=SortieSon
+   33 00000006 4C06            ldr              R4,=Index
+   34 00000008 4806            ldr              R0,=Son
+   35 0000000A 6821            ldr              R1,[R4]     ;R1 = indice
+   36 0000000C F930 3011       ldrsh            R3,[R0,R1,lsl#1]
+   37 00000010 F101 0101       add              R1,#1
+   38 00000014 E8BD 4FF0       pop              {R4-R11, lr}
+   39 00000018 4770            bx               lr
+   40 0000001A                 endp
+   41 0000001A         
+   42 0000001A         
+   43 0000001A         
+   44 0000001A         
+   45 0000001A         
+   46 0000001A         
+   47 0000001A                 END
+              00 00 00000000 
+              00000000 
+              00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_CibleSondeST -IC:
-\Programdata\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata
-\Keil\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SET
-A 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" -
--predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ 
-SETA 1" --list=gestionson.lst Src\GestionSon.s
+ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_Simu -IC:\Program
+data\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Ar
+m\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --p
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+redefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" --predefi
+ne="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" 
+--list=gestionson.lst Src\GestionSon.s
 
 
 
@@ -57,7 +82,7 @@ mesdata 00000000
 
 Symbol: mesdata
    Definitions
-      At line 8 in file Src\GestionSon.s
+      At line 9 in file Src\GestionSon.s
    Uses
       None
 Comment: mesdata unused
@@ -68,44 +93,67 @@ Comment: mesdata unused
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Relocatable symbols
 
+Index 00000004
+
+Symbol: Index
+   Definitions
+      At line 17 in file Src\GestionSon.s
+   Uses
+      At line 33 in file Src\GestionSon.s
+Comment: Index used once
+SortieSon 00000000
+
+Symbol: SortieSon
+   Definitions
+      At line 16 in file Src\GestionSon.s
+   Uses
+      At line 32 in file Src\GestionSon.s
+Comment: SortieSon used once
 maram 00000000
 
 Symbol: maram
    Definitions
-      At line 12 in file Src\GestionSon.s
+      At line 14 in file Src\GestionSon.s
    Uses
       None
 Comment: maram unused
-1 symbol
+3 symbols
 
 
 
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Relocatable symbols
 
-CallbackSon 00000002
+CallbackSon 00000000
 
 Symbol: CallbackSon
    Definitions
-      At line 25 in file Src\GestionSon.s
-   Uses
-      At line 4 in file Src\GestionSon.s
-Comment: CallbackSon used once
-SortieSon 00000000
-
-Symbol: SortieSon
-   Definitions
-      At line 23 in file Src\GestionSon.s
+      At line 30 in file Src\GestionSon.s
    Uses
       At line 5 in file Src\GestionSon.s
-Comment: SortieSon used once
+Comment: CallbackSon used once
 moncode 00000000
 
 Symbol: moncode
    Definitions
-      At line 20 in file Src\GestionSon.s
+      At line 25 in file Src\GestionSon.s
    Uses
       None
 Comment: moncode unused
-3 symbols
-340 symbols in table
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+Son 00000000
+
+Symbol: Son
+   Definitions
+      At line 6 in file Src\GestionSon.s
+   Uses
+      At line 34 in file Src\GestionSon.s
+Comment: Son used once
+1 symbol
+344 symbols in table
