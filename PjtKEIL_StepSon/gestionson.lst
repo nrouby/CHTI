@@ -9,66 +9,89 @@ ARM Macro Assembler    Page 1
     3 00000000         
     4 00000000         
     5 00000000                 EXPORT           CallbackSon
-    6 00000000                 import           Son
-    7 00000000         ; ====================== zone de réservation de données,
+    6 00000000                 EXPORT           SortieSon
+    7 00000000                 EXPORT           Index
+    8 00000000                 import           Son
+    9 00000000                 import           LongueurSon
+   10 00000000         ; ====================== zone de réservation de données,
                          ======================================
-    8 00000000         ;Section RAM (read only) :
-    9 00000000                 area             mesdata,data,readonly
-   10 00000000         
-   11 00000000         
-   12 00000000         
-   13 00000000         ;Section RAM (read write):
-   14 00000000                 area             maram,data,readwrite
+   11 00000000         ;Section RAM (read only) :
+   12 00000000                 area             mesdata,data,readonly
+   13 00000000         
+   14 00000000         
    15 00000000         
-   16 00000000 00 00   SortieSon
+   16 00000000         ;Section RAM (read write):
+   17 00000000                 area             maram,data,readwrite
+   18 00000000         
+   19 00000000 00 00   SortieSon
                                dcw              0
-   17 00000002 00 00 00000000 
+   20 00000002 00 00 00000000 
                        Index   dcd              0
-   18 00000008         
-   19 00000008         ; ======================================================
-                       =========================================
-   20 00000008         
    21 00000008         
-   22 00000008         
+   22 00000008         ; ======================================================
+                       =========================================
    23 00000008         
-   24 00000008         ;Section ROM code (read only) :  
-   25 00000008                 area             moncode,code,readonly
-   26 00000000         ; écrire le code ici  
-   27 00000000         
-   28 00000000         
-   29 00000000         
-   30 00000000         CallbackSon
+   24 00000008         
+   25 00000008         
+   26 00000008         
+   27 00000008         ;Section ROM code (read only) :  
+   28 00000008                 area             moncode,code,readonly
+   29 00000000         ; écrire le code ici  
+   30 00000000         
+   31 00000000         
+   32 00000000         
+   33 00000000         CallbackSon
                                proc
-   31 00000000 E92D 4FF0       push             {R4-R11, lr}
-   32 00000004 4A05            ldr              R2,=SortieSon
-   33 00000006 4C06            ldr              R4,=Index
-   34 00000008 4806            ldr              R0,=Son
-   35 0000000A 6821            ldr              R1,[R4]     ;R1 = indice
-   36 0000000C F930 3011       ldrsh            R3,[R0,R1,lsl#1]
-   37 00000010 F101 0101       add              R1,#1
-   38 00000014 E8BD 4FF0       pop              {R4-R11, lr}
-   39 00000018 4770            bx               lr
-   40 0000001A                 endp
-   41 0000001A         
-   42 0000001A         
-   43 0000001A         
-   44 0000001A         
-   45 0000001A         
-   46 0000001A         
-   47 0000001A                 END
-              00 00 00000000 
-              00000000 
-              00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_Simu -IC:\Program
-data\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Ar
-m\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --p
+   34 00000000 E92D 4FF0       push             {R4-R11, lr}
+   35 00000004 4A0E            ldr              R2,=SortieSon
+   36 00000006 4C0F            ldr              R4,=Index
+   37 00000008 480F            ldr              R0,=Son
+   38 0000000A 4D10            ldr              R5,=LongueurSon
+   39 0000000C 682D            ldr              R5,[R5]
+   40 0000000E F1A5 0501       sub              R5,#1
+   41 00000012 42A5            cmp              R5, R4
+   42 00000014 D010            beq              End_tab
+   43 00000016 6821            ldr              R1,[R4]     ;R1 = indice
+   44 00000018 F930 3011       ldrsh            R3,[R0,R1,lsl#1] ;recupere la v
+                                                            aleur du son dans r
+                                                            3
+   45 0000001C F101 0101       add              R1,#1       ;increment index
+   46 00000020         ;mise en forme
+   47 00000020 F503 4300       add              R3,#32768
+   48 00000024 F44F 7634       mov              R6,#720
+   49 00000028 FB03 F306       mul              R3,R6
+   50 0000002C F64F 76FF       mov              R6,#65535
+   51 00000030 FBB3 F3F6       udiv             R3,R6
+   52 00000034         
 
 
 
 ARM Macro Assembler    Page 2 
 
 
+   53 00000034         
+   54 00000034 6021            str              R1,[R4]
+   55 00000036 8013            strh             R3,[R2]
+   56 00000038         
+   57 00000038         End_tab
+   58 00000038 E8BD 4FF0       pop              {R4-R11, lr}
+   59 0000003C 4770            bx               lr
+   60 0000003E                 endp
+   61 0000003E         
+   62 0000003E         
+   63 0000003E         
+   64 0000003E         
+   65 0000003E         
+   66 0000003E         
+   67 0000003E                 END
+              00 00 00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_Simu -IC:\Program
+data\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Ar
+m\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --p
 redefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" --predefi
 ne="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" 
 --list=gestionson.lst Src\GestionSon.s
@@ -82,7 +105,7 @@ mesdata 00000000
 
 Symbol: mesdata
    Definitions
-      At line 9 in file Src\GestionSon.s
+      At line 12 in file Src\GestionSon.s
    Uses
       None
 Comment: mesdata unused
@@ -97,23 +120,25 @@ Index 00000004
 
 Symbol: Index
    Definitions
-      At line 17 in file Src\GestionSon.s
+      At line 20 in file Src\GestionSon.s
    Uses
-      At line 33 in file Src\GestionSon.s
-Comment: Index used once
+      At line 7 in file Src\GestionSon.s
+      At line 36 in file Src\GestionSon.s
+
 SortieSon 00000000
 
 Symbol: SortieSon
    Definitions
-      At line 16 in file Src\GestionSon.s
+      At line 19 in file Src\GestionSon.s
    Uses
-      At line 32 in file Src\GestionSon.s
-Comment: SortieSon used once
+      At line 6 in file Src\GestionSon.s
+      At line 35 in file Src\GestionSon.s
+
 maram 00000000
 
 Symbol: maram
    Definitions
-      At line 14 in file Src\GestionSon.s
+      At line 17 in file Src\GestionSon.s
    Uses
       None
 Comment: maram unused
@@ -128,32 +153,48 @@ CallbackSon 00000000
 
 Symbol: CallbackSon
    Definitions
-      At line 30 in file Src\GestionSon.s
+      At line 33 in file Src\GestionSon.s
    Uses
       At line 5 in file Src\GestionSon.s
 Comment: CallbackSon used once
+End_tab 00000038
+
+Symbol: End_tab
+   Definitions
+      At line 57 in file Src\GestionSon.s
+   Uses
+      At line 42 in file Src\GestionSon.s
+Comment: End_tab used once
 moncode 00000000
 
 Symbol: moncode
    Definitions
-      At line 25 in file Src\GestionSon.s
+      At line 28 in file Src\GestionSon.s
    Uses
       None
 Comment: moncode unused
-2 symbols
+3 symbols
 
 
 
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 External symbols
 
+LongueurSon 00000000
+
+Symbol: LongueurSon
+   Definitions
+      At line 9 in file Src\GestionSon.s
+   Uses
+      At line 38 in file Src\GestionSon.s
+Comment: LongueurSon used once
 Son 00000000
 
 Symbol: Son
    Definitions
-      At line 6 in file Src\GestionSon.s
+      At line 8 in file Src\GestionSon.s
    Uses
-      At line 34 in file Src\GestionSon.s
+      At line 37 in file Src\GestionSon.s
 Comment: Son used once
-1 symbol
-344 symbols in table
+2 symbols
+346 symbols in table
