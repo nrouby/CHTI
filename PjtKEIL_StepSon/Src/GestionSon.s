@@ -7,6 +7,7 @@
 	EXPORT Index
 	import Son
 	import LongueurSon
+	include Driver/DriverJeuLaser.inc
 ; ====================== zone de réservation de données,  ======================================
 ;Section RAM (read only) :
 	area    mesdata,data,readonly
@@ -50,11 +51,16 @@ CallbackSon proc
 	mov R6,#65535
 	udiv R3,R6
 	
-	
 	str R1,[R4]
 	strh R3,[R2]
+	mov R0,R3
+	bl PWM_Set_Value_TIM3_Ch3
+	b end_callback
 	
 End_tab
+	mov R0,#0
+	bl PWM_Set_Value_TIM3_Ch3
+end_callback
 	pop {R4-R11, lr}
 	bx lr
 	endp
