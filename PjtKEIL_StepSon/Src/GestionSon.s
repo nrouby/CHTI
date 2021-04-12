@@ -60,11 +60,21 @@ CallbackSon proc
 End_tab
 	mov R0,#0
 	bl PWM_Set_Value_TIM3_Ch3
+	bl StartSon
 end_callback
 	pop {R4-R11, lr}
 	bx lr
 	endp
 
+StartSon proc
+	push {R4-R11, lr}
+	ldr R0,=Index
+	ldr R1,[R0]
+	mov R1,#0
+	str R1,[R0]
+	pop {R4-R11, lr}
+	bx lr
+	endp
 
 
 
