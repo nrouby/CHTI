@@ -60,7 +60,7 @@ CallbackSon proc
 End_tab
 	mov R0,#0
 	bl PWM_Set_Value_TIM3_Ch3
-	bl StartSon
+	;bl StartSon ;test pour voir si StartSon fonctionne
 end_callback
 	pop {R4-R11, lr}
 	bx lr
