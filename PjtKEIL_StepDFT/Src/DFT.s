@@ -2,9 +2,11 @@
 	THUMB   
 		
 
+<<<<<<< HEAD
 	EXPORT DFT_Module_reel_imag
 	export TabCos
 	export TabSin
+=======
 ; ====================== zone de réservation de données,  ======================================
 ;Section RAM (read only) :
 	area    mesdata,data,readonly
@@ -24,6 +26,7 @@
 	area    moncode,code,readonly
 ; écrire le code ici		
 
+<<<<<<< HEAD
 DFT_Module_reel_imag proc
 	push {R4-R11, lr}
 	;R0 = adresse échantillon, R1 = k;  R2 = adresse_tab_cos/sin, R3 = cos(p), R4 = résultat, R5 = p, R6 = n, R7 = cos(p)*x(n), sR8 = x(n);
@@ -47,7 +50,7 @@ End_reel
 	pop {R4-R11, lr}
 	bx lr
 	endp
-
+;=======
 
 
 ;Section ROM code (read only) :		
@@ -188,4 +191,8 @@ TabSin
 
 		
 		
+<<<<<<< HEAD
 	END
+=======
+	END	
+>>>>>>> 31d97e93d6486310110d4dc7590d26eaade60098
