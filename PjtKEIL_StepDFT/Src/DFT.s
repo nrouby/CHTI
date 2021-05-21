@@ -3,6 +3,7 @@
 		
 
 	EXPORT DFT_Module_reel_imag
+	EXPORT DFT_module_carre
 	export TabCos
 	export TabSin
 ;=======
@@ -36,15 +37,35 @@ Deb_boucle	;debut boucle
 	beq End_reel
 	mul R5,R6,R1 ;R5 correspond à p
 	AND R5,#63 ;R5 = p mod 63
-	ldrsh R3,[R2,R5,lsl 1] ;R3 correspond a cos(p) ou sin(p)
-	ldrsh R8,[R0,R6,lsl 1] ; R8 correspond à x(n) 
+	ldrsh R3,[R2,R5,lsl #1] ;R3 correspond a cos(p) ou sin(p)
+	ldrsh R8,[R0,R6,lsl #1] ; R8 correspond à x(n) 
 	mul R7,R3,R8 ;R7 = cos(p)*x(n)
+	;R7 format 5,27
+	asr R7,#16
+	;R7 format 5,11
 	add R4,R4,R7
 	add R6,R6,#1
 	b Deb_boucle
 
 End_reel
 	mov R0,R4
+	;R0 est en codage fractionnaire 5,11
+	pop {R4-R11, lr}
+	bx lr
+	endp
+		
+DFT_module_carre proc
+	push {R4-R11, lr}
+	;R0 = partie reelle, R1 = partie imaginaire format 5,11	
+	asr R0,#1
+	asr R1,#1
+	mul R0,R0
+	mul R1,R1
+	;R1 et R0 format 10,22
+	asr R0,#1
+	asr R1,#1
+	;R0 et R1 format 10,21
+	add R0,R1
 	pop {R4-R11, lr}
 	bx lr
 	endp

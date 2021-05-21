@@ -399,14 +399,19 @@
               <FilePath>.\Src\Signal.asm</FilePath>
             </File>
             <File>
-              <FileName>Signal_cos_pur.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\Signal_cos_pur.asm</FilePath>
-            </File>
-            <File>
               <FileName>Signal_cos.asm</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\Signal_cos.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_sin.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_sin.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_cos_k_16.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_cos_k_16.asm</FilePath>
             </File>
           </Files>
         </Group>
@@ -828,14 +833,19 @@
               <FilePath>.\Src\Signal.asm</FilePath>
             </File>
             <File>
-              <FileName>Signal_cos_pur.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\Signal_cos_pur.asm</FilePath>
-            </File>
-            <File>
               <FileName>Signal_cos.asm</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\Signal_cos.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_sin.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_sin.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_cos_k_16.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_cos_k_16.asm</FilePath>
             </File>
           </Files>
         </Group>
@@ -1326,14 +1336,19 @@
               <FilePath>.\Src\Signal.asm</FilePath>
             </File>
             <File>
-              <FileName>Signal_cos_pur.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\Signal_cos_pur.asm</FilePath>
-            </File>
-            <File>
               <FileName>Signal_cos.asm</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\Signal_cos.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_sin.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_sin.asm</FilePath>
+            </File>
+            <File>
+              <FileName>Signal_cos_k_16.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\Signal_cos_k_16.asm</FilePath>
             </File>
           </Files>
         </Group>
