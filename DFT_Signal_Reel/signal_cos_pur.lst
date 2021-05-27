@@ -1,0 +1,53 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             Signal, DATA, READONLY
+    2 00000000         ;export LeSignal
+    3 00000000         LeSignal
+    4 00000000 FF 0F           DCW              0x0fff      ;  0 4095  0.99976
+    5 00000002 00 0C           DCW              0x0c00      ;  1 3072  0.75000
+    6 00000004 00 04           DCW              0x0400      ;  2 1024  0.25000
+    7 00000006 00 00           DCW              0x0000      ;  3    0  0.00000
+    8 00000008 00 04           DCW              0x0400      ;  4 1024  0.25000
+    9 0000000A 00 0C           DCW              0x0c00      ;  5 3072  0.75000
+   10 0000000C FF 0F           DCW              0x0fff      ;  6 4095  0.99976
+   11 0000000E 00 0C           DCW              0x0c00      ;  7 3072  0.75000
+   12 00000010 00 04           DCW              0x0400      ;  8 1024  0.25000
+   13 00000012 00 00           DCW              0x0000      ;  9    0  0.00000
+   14 00000014 00 04           DCW              0x0400      ; 10 1024  0.25000
+   15 00000016 00 0C           DCW              0x0c00      ; 11 3072  0.75000
+   16 00000018                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\signal_cos_pur.d -o.\obj\signal_cos_pur.o -I.\RTE\_Simu -IC:
+\Programdata\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata
+\Keil\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SET
+A 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" -
+-predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ 
+SETA 1" --list=signal_cos_pur.lst ..\..\Signal_cos_pur.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LeSignal 00000000
+
+Symbol: LeSignal
+   Definitions
+      At line 3 in file ..\..\Signal_cos_pur.asm
+   Uses
+      None
+Comment: LeSignal unused
+Signal 00000000
+
+Symbol: Signal
+   Definitions
+      At line 1 in file ..\..\Signal_cos_pur.asm
+   Uses
+      None
+Comment: Signal unused
+2 symbols
+337 symbols in table
