@@ -1,7 +1,7 @@
 	PRESERVE8
 	THUMB   
 		
-
+	EXPORT StartSon
 	EXPORT CallbackSon
 	EXPORT SortieSon
 	EXPORT Index
@@ -69,7 +69,6 @@ end_callback
 StartSon proc
 	push {R4-R11, lr}
 	ldr R0,=Index
-	ldr R1,[R0]
 	mov R1,#0
 	str R1,[R0]
 	pop {R4-R11, lr}
